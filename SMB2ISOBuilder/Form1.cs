@@ -90,6 +90,16 @@ namespace SMB2ISOBuilder
             // If folder exists then CreateDirectory will do nothing.
             Directory.CreateDirectory(specificFolder);
 
+            if (!Directory.Exists(OutputTextBox.Text))
+            {
+                Directory.CreateDirectory(OutputTextBox.Text);
+            }
+            if (!nameBox.Text.EndsWith(".iso"))
+            {
+                text += ".iso";
+            }
+
+
             string arguments = String.Format("{0} {1}", Path.Combine(specificFolder,"root"), Path.Combine(text));
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -127,7 +137,7 @@ namespace SMB2ISOBuilder
             string[] dsps = System.IO.Directory.GetFiles(tempFolder, "*.dsp", SearchOption.AllDirectories);
             string[] strs = System.IO.Directory.GetFiles(tempFolder, "*.str", SearchOption.AllDirectories);
             string[] rels = System.IO.Directory.GetFiles(tempFolder, "mkb2.main_loop.rel", SearchOption.AllDirectories);
-            String stagesPath = Path.Combine(specificFolder, "root","stages");
+            String stagesPath = Path.Combine(specificFolder, "root","stage");
             String bgPath = Path.Combine(specificFolder, "root", "bg");
             String sndPath = Path.Combine(specificFolder, "root", "snd","stream");
             String relPath = Path.Combine(specificFolder);
@@ -141,18 +151,18 @@ namespace SMB2ISOBuilder
 
             foreach (var lz in lzs)
             {
-                File.Copy(lz, stagesPath + Path.GetFileName(lz), true);
+                File.Copy(lz, stagesPath + "\\" + Path.GetFileName(lz), true);
                 AddToLog("Copying " + lz);
             }
             foreach (var gma in gmas)
             {
                 if (gma.Contains(@"\bg\"))
                 {
-                    File.Copy(gma, bgPath + Path.GetFileName(gma), true);
+                    File.Copy(gma, bgPath + "\\" + Path.GetFileName(gma), true);
                 }
                 else
                 {
-                File.Copy(gma, stagesPath + Path.GetFileName(gma), true);
+                File.Copy(gma, stagesPath + "\\" + Path.GetFileName(gma), true);
 
                 }
 
@@ -163,11 +173,11 @@ namespace SMB2ISOBuilder
             {
                 if (tpl.Contains(@"\bg\"))
                 {
-                    File.Copy(tpl, bgPath + Path.GetFileName(tpl), true);
+                    File.Copy(tpl, bgPath + "\\" + Path.GetFileName(tpl), true);
                 }
                 else
                 {
-                    File.Copy(tpl, stagesPath + Path.GetFileName(tpl), true);
+                    File.Copy(tpl, stagesPath + "\\" + Path.GetFileName(tpl), true);
 
                 }
                 AddToLog("Copying " + tpl);
@@ -176,13 +186,13 @@ namespace SMB2ISOBuilder
 
             foreach (var rel in rels)
             {
-                File.Copy(rel, relPath + Path.GetFileName(rel), true);
+                File.Copy(rel, relPath + "\\" + Path.GetFileName(rel), true);
                 AddToLog("Copying " + rel);
 
             }
             foreach (var dsp in dsps)
             {
-                File.Copy(dsp, sndPath + Path.GetFileName(dsp), true);
+                File.Copy(dsp, sndPath + "\\" + Path.GetFileName(dsp), true);
                 AddToLog("Copying " + dsp);
 
             }
