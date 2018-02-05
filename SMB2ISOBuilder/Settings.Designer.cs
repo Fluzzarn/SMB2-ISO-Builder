@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SMB2ISOBuilder.Properties {
+namespace SMB2ISOBuilder {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -23,39 +23,24 @@ namespace SMB2ISOBuilder.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("asdf")]
         public string GCR {
             get {
                 return ((string)(this["GCR"]));
             }
-            set {
-                this["GCR"] = value;
-            }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ISO {
+        public string SMB {
             get {
-                return ((string)(this["ISO"]));
+                return ((string)(this["SMB"]));
             }
             set {
-                this["ISO"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ZIP {
-            get {
-                return ((string)(this["ZIP"]));
-            }
-            set {
-                this["ZIP"] = value;
+                this["SMB"] = value;
             }
         }
         
@@ -68,6 +53,18 @@ namespace SMB2ISOBuilder.Properties {
             }
             set {
                 this["Output"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ZIP {
+            get {
+                return ((string)(this["ZIP"]));
+            }
+            set {
+                this["ZIP"] = value;
             }
         }
         
