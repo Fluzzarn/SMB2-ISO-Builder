@@ -17,11 +17,11 @@ namespace SMB2ISOBuilder
     {
         // Combine the base folder with your specific folder....
         string specificFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SMB2ISOBuilder");
-
+        string swappedLevels = "";
         public Form1()
         {
+            this.Icon = new Icon("icon.ico");
             InitializeComponent();
-            gcr_textbox.Text = Properties.Settings.Default.GCR;
             ZIP_textbox.Text = Properties.Settings.Default.ZIP;
             SMB2_ISO_textbox.Text = Properties.Settings.Default.ISO;
             OutputTextBox.Text = Properties.Settings.Default.Output;
@@ -35,16 +35,12 @@ namespace SMB2ISOBuilder
 
         private void GCRBrowseButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                gcr_textbox.Text = openFileDialog1.FileName;
-                Properties.Settings.Default.GCR = gcr_textbox.Text;
-                Properties.Settings.Default.Save();
-            }
+
         }
 
         private void SMB2_ISO_Browse_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "ISO Files|*.iso";
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SMB2_ISO_textbox.Text = openFileDialog1.FileName;
@@ -65,6 +61,7 @@ namespace SMB2ISOBuilder
 
         private void ZIP_Browse_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "ZIP Files|*.zip";
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ZIP_textbox.Text = openFileDialog1.FileName;
@@ -82,6 +79,7 @@ namespace SMB2ISOBuilder
             CopyToZip(ZIP_textbox.Text);
             AddToLog("Making new ISO");
             MakeNewISO(Path.Combine(OutputTextBox.Text,nameBox.Text));
+            MessageBox.Show("The following levels have been modified: " + Environment.NewLine + swappedLevels);
         }
 
         private void MakeNewISO(string text)
@@ -103,7 +101,7 @@ namespace SMB2ISOBuilder
             string arguments = String.Format("{0} {1}", Path.Combine(specificFolder,"root"), Path.Combine(text));
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = gcr_textbox.Text;
+            startInfo.FileName = Path.Combine(System.IO.Directory.GetCurrentDirectory(),"resources","gcr.exe");
             startInfo.Arguments = arguments;
             AddToLog(arguments);
 
@@ -153,6 +151,7 @@ namespace SMB2ISOBuilder
             {
                 File.Copy(lz, stagesPath + "\\" + Path.GetFileName(lz), true);
                 AddToLog("Copying " + lz);
+                swappedLevels += Path.GetFileNameWithoutExtension(lz) + Environment.NewLine;
             }
             foreach (var gma in gmas)
             {
@@ -205,7 +204,7 @@ namespace SMB2ISOBuilder
             string arguments = String.Format("\"{0}\" root e \"{1}\"", path, rootPath );
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = gcr_textbox.Text;
+            startInfo.FileName = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "resources", "gcr.exe");
             startInfo.Arguments = arguments;
             AddToLog(arguments);
 
