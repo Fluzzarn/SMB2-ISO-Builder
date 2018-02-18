@@ -98,8 +98,8 @@ namespace SMB2ISOBuilder
                 text += ".iso";
             }
 
-
-            string arguments = String.Format("{0} {1}", Path.Combine(specificFolder,"root"), Path.Combine(text));
+            Directory.CreateDirectory(Path.GetDirectoryName(text));
+            string arguments = String.Format("{0} {1}","\"" + Path.Combine(specificFolder,"root")+ "\"" , "\"" + Path.GetFullPath(text)+ "\"" );
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = Path.Combine(System.IO.Directory.GetCurrentDirectory(),"resources","gcr.exe");
@@ -131,7 +131,7 @@ namespace SMB2ISOBuilder
 
             //ZipFile.ExtractToDirectory(System.IO.Path.GetFullPath(zipPath), tempFolder );
 
-            using (ZipFile zip = ZipFile.Read(System.IO.Path.GetFullPath(zipPath)))
+            using (ZipFile zip = ZipFile.Read( System.IO.Path.GetFullPath(zipPath) ))
             {
                 zip.ExtractAll(tempFolder);
             }
