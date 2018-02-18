@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ionic.Zip;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Compression;
+
 
 namespace SMB2ISOBuilder
 {
@@ -40,7 +41,7 @@ namespace SMB2ISOBuilder
 
         private void SMB2_ISO_Browse_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "ISO Files|*.iso";
+            openFileDialog1.Filter = "ISO Files|*.iso|All files (*.*)|*.*";
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SMB2_ISO_textbox.Text = openFileDialog1.FileName;
@@ -128,7 +129,13 @@ namespace SMB2ISOBuilder
 
             }
 
-            ZipFile.ExtractToDirectory(zipPath, tempFolder );
+            //ZipFile.ExtractToDirectory(System.IO.Path.GetFullPath(zipPath), tempFolder );
+
+            using (ZipFile zip = ZipFile.Read(System.IO.Path.GetFullPath(zipPath)))
+            {
+                zip.ExtractAll(tempFolder);
+            }
+            
             string[] lzs = System.IO.Directory.GetFiles(tempFolder, "*.lz",SearchOption.AllDirectories);
             string[] gmas = System.IO.Directory.GetFiles(tempFolder, "*.gma", SearchOption.AllDirectories);
             string[] tpls = System.IO.Directory.GetFiles(tempFolder, "*.tpl", SearchOption.AllDirectories);
