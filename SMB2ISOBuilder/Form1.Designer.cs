@@ -47,6 +47,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.doubleSpeedCheckbox = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -211,11 +212,22 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Output Name:";
             // 
+            // doubleSpeedCheckbox
+            // 
+            this.doubleSpeedCheckbox.AutoSize = true;
+            this.doubleSpeedCheckbox.Location = new System.Drawing.Point(13, 157);
+            this.doubleSpeedCheckbox.Name = "doubleSpeedCheckbox";
+            this.doubleSpeedCheckbox.Size = new System.Drawing.Size(92, 17);
+            this.doubleSpeedCheckbox.TabIndex = 6;
+            this.doubleSpeedCheckbox.Text = "Gotta Go Fast";
+            this.doubleSpeedCheckbox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 450);
+            this.Controls.Add(this.doubleSpeedCheckbox);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.panel4);
@@ -233,6 +245,7 @@
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -256,6 +269,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox doubleSpeedCheckbox;
     }
 }
 

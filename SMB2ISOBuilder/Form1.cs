@@ -192,7 +192,11 @@ namespace SMB2ISOBuilder
 
             foreach (var rel in rels)
             {
-                File.Copy(rel, relPath + "\\" + Path.GetFileName(rel), true);
+                if (Path.GetFileName(rel).Contains("main_loop") && doubleSpeedCheckbox.Checked)
+                {
+                    GottaGoFast(rel);
+                }
+                File.Copy(rel, relPath + "\\root\\" + Path.GetFileName(rel), true);
                 AddToLog("Copying " + rel);
 
             }
@@ -202,6 +206,26 @@ namespace SMB2ISOBuilder
                 AddToLog("Copying " + dsp);
 
             }
+        }
+
+        private void GottaGoFast(string rel)
+        {
+            using (FileStream b = new FileStream(rel,FileMode.Open))
+            {
+                int length = (int)b.Length;
+                int pos = 0x2023BC;
+
+                b.Seek(pos, SeekOrigin.Begin);
+
+                //Somepoint let the user choose the speed
+                b.WriteByte(0x3C);
+                b.WriteByte(0xA0);
+                b.WriteByte(0x90);
+                b.WriteByte(0x23);
+                b.Flush();
+                
+            }
+
         }
 
         private void openISO(string path)
